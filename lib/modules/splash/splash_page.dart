@@ -1,16 +1,22 @@
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Splash'), backgroundColor: Colors.grey[400],),
+    return Scaffold( 
       body: Center(
         child: Container(
-          child: Text(FirebaseRemoteConfig.instance.getString('api_token')),
+          width: Get.width,
+          height: Get.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(image: AssetImage('assets/images/background.png'),
+            fit: BoxFit.cover)
+          ),
+          child: Image.asset('assets/images/logo.png')
         ))
     );
   }
