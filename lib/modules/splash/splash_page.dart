@@ -1,9 +1,12 @@
+import 'package:app_filmes/modules/splash/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({super.key});
+  var controller = Get.find<SplashController>();
+  SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
