@@ -1,11 +1,15 @@
 import 'package:app_filmes/application/ui/loader/loader_mixin.dart';
 import 'package:app_filmes/application/ui/messages/messages_mixin.dart';
+import 'package:app_filmes/services/login/login_service.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController with LoaderMixin, MessagesMixin{
-
+class LoginController extends GetxController with LoaderMixin, MessagesMixin {
+  final LoginService _loginService;
   final loading = false.obs;
-  final message = Rxn<MessageModel> ();
+  final message = Rxn<MessageModel>();
+
+  LoginController({required LoginService loginService})
+      : _loginService = loginService;
 
   @override
   void onInit() {
@@ -14,13 +18,23 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin{
     super.onInit();
   }
 
-  Future<void> login() async{
-    loading(true);
-    await 2.seconds.delay();
-    //await Future.delayed(const Duration(seconds: 2));
-    loading(false);
-    message(MessageModel(title: 'Titulo Erro', message: 'Mensagem de Erro', type: MessageType.error));
-    await 1.seconds.delay();
-    message(MessageModel(title: 'Titulo Sucesso', message: 'Mensagem de Sucesso', type: MessageType.info));
+  Future<void> login() async {
+    try {
+      loading(true);
+      await _loginService.login();
+      loading(false);
+      message(MessageModel(
+          title: 'Sucesso',
+          message: 'Login realizado com sucesso',
+          type: MessageType.info));
+    } on Exception catch (e, s) {
+      print('Erro é: $e');
+      print(s);
+      loading(false);
+      message(MessageModel(
+          title: 'Login Erro',
+          message: 'Erro ao realizar login',
+          type: MessageType.error));
+    }
   }
 }

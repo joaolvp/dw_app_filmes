@@ -5,7 +5,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
 class SplashPage extends StatelessWidget {
-  var controller = Get.find<SplashController>();
+  final controller = Get.find<SplashController>();
   SplashPage({super.key});
 
   @override
