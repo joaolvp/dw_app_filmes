@@ -11,7 +11,7 @@ class FavoritesPage extends StatelessWidget {
         "Meus favoritos",
         style: Theme.of(context).textTheme.headlineSmall,
       )),
-      body: Text('Favorites Page'),
+      body: const Text('Favorites Page'),
     );
   }
 }

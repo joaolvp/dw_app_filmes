@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_filmes/application/ui/loader/loader_mixin.dart';
 import 'package:app_filmes/application/ui/messages/messages_mixin.dart';
 import 'package:app_filmes/services/login/login_service.dart';
@@ -28,8 +30,7 @@ class LoginController extends GetxController with LoaderMixin, MessagesMixin {
           message: 'Login realizado com sucesso',
           type: MessageType.info));
     } on Exception catch (e, s) {
-      print('Erro é: $e');
-      print(s);
+      log(s.toString());
       loading(false);
       message(MessageModel(
           title: 'Login Erro',

@@ -1,0 +1,49 @@
+import 'dart:developer';
+
+import 'package:app_filmes/application/ui/messages/messages_mixin.dart';
+import 'package:app_filmes/models/genre_model.dart';
+import 'package:app_filmes/models/movie_model.dart';
+import 'package:app_filmes/services/genres/genres_service.dart';
+import 'package:app_filmes/services/movies/movies_service.dart';
+import 'package:get/get.dart';
+
+class MoviesController extends GetxController with MessagesMixin{
+  final GenresService _genresService;
+  final MoviesService _moviesService;
+  final _message = Rxn<MessageModel>();
+  final genres = <GenreModel>[].obs;
+
+  final popularMovies = <MovieModel>[].obs;
+  final topRatedMovies = <MovieModel>[].obs;
+
+  final _popularMoviesOriginal = <MovieModel>[];
+  final _topRatedMoviesOriginal = <MovieModel>[];
+
+  MoviesController({required GenresService genresService, required MoviesService moviesService})
+      : _genresService = genresService, _moviesService = moviesService;
+
+  @override
+  void onInit() {
+    messageListenner(_message);
+    super.onInit();
+  }
+
+
+  @override
+  Future<void> onReady() async {
+    try {
+      final genres = await _genresService.getGenres();
+      this.genres.assignAll(genres);
+      final popularMoviesData = await _moviesService.getPopularMovies();
+      final topRatedMoviesData = await _moviesService.getTopRated();
+
+      popularMovies.assignAll(popularMoviesData);
+      topRatedMovies.assignAll(topRatedMoviesData);
+    } on Exception catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      _message(MessageModel.error(title: 'Erro', message: 'Erro ao carregar dados da página'));
+    }
+    super.onReady();
+  }
+}
