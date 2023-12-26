@@ -15,8 +15,8 @@ class MoviesPage extends GetView<MoviesController> {
       width: Get.width,
       child: ListView(
         children: [
-          MoviesHeader(),
-          MoviesFilters(),
+          const MoviesHeader(),
+          const MoviesFilters(),
           MoviesGroup(title: 'Mais Populares', movies: controller.popularMovies,),
           MoviesGroup(title: 'Top Filmes', movies: controller.topRatedMovies,)
         ],
