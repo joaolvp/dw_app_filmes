@@ -12,7 +12,8 @@ class FilmesAppUiConfig {
       appBarTheme: const AppBarTheme(
           color: Colors.white,
           centerTitle: true,
-          titleTextStyle: TextStyle(color: Colors.red)),
+          titleTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black)
+        ),
       iconTheme: const IconThemeData(color: Colors.black),
       textTheme: TextTheme(
         headlineLarge: GoogleFonts.roboto(
