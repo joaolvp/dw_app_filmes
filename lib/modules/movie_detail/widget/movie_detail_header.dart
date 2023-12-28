@@ -1,5 +1,6 @@
 import 'package:app_filmes/models/movie_detail_model.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieDetailHeader extends StatelessWidget {
   final MovieDetailModel? movie;
@@ -13,7 +14,12 @@ class MovieDetailHeader extends StatelessWidget {
       return SizedBox(
           width: double.infinity,
           height: 278,
-          child: Image.network(movieData.urlImage, fit: BoxFit.fill,));
+          child: FadeInImage.memoryNetwork(
+            image: movieData.urlImage, 
+            placeholder: kTransparentImage,
+            fit: BoxFit.fill,
+          )
+        );
     } else {
       return const SizedBox.shrink();
     }

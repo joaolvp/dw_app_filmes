@@ -7,6 +7,7 @@ class MovieModel {
   final String posterPath;
   final List<int> genres;
   final bool favorite;
+  final String headerImage;
 
   MovieModel(
       {required this.id,
@@ -14,7 +15,8 @@ class MovieModel {
       required this.releaseDate,
       required this.posterPath,
       required this.genres,
-      required this.favorite});
+      required this.favorite,
+      required this.headerImage});
 
   
   Map<String, dynamic> toMap(){
@@ -24,7 +26,8 @@ class MovieModel {
       'release_date': releaseDate,
       'poster_path': posterPath,
       'genre_ids': genres,
-      'favorite': favorite
+      'favorite': favorite,
+      'headerImage': headerImage
     };
   }
 
@@ -35,7 +38,8 @@ class MovieModel {
       releaseDate: map['release_date'] ?? '', 
       posterPath: map['poster_path'], 
       genres: List<int>.from(map['genre_ids'] ?? const []), 
-      favorite: map['favorite'] ?? false
+      favorite: map['favorite'] ?? false,
+      headerImage: map['backdrop_path'] ?? '',
       );
   }
 
@@ -52,6 +56,7 @@ class MovieModel {
     String? posterPath,
     List<int>? genres,
     bool? favorite,
+    String? headerImage
   }) {
     return MovieModel(
       id: id ?? this.id,
@@ -60,6 +65,7 @@ class MovieModel {
       posterPath: posterPath ?? this.posterPath,
       genres: genres ?? this.genres,
       favorite: favorite ?? this.favorite,
+      headerImage: headerImage ?? this.headerImage,
     );
   }
 }
