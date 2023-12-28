@@ -1,4 +1,5 @@
 import 'package:app_filmes/application/ui/theme_extensions.dart';
+import 'package:app_filmes/modules/favorites/favorites_bindings.dart';
 import 'package:app_filmes/modules/favorites/favorites_page.dart';
 import 'package:app_filmes/modules/home/home_controller.dart';
 import 'package:app_filmes/modules/movies/movies_bindings.dart';
@@ -21,7 +22,7 @@ class HomePage extends GetView<HomeController> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.movie), label: 'Filmes'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_border), label: 'Favoritos'),
+                icon: Icon(Icons.favorite_outline), label: 'Favoritos'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.logout_outlined), label: 'Sair'),
           ]);}),
@@ -39,7 +40,8 @@ class HomePage extends GetView<HomeController> {
           if(settings.name == '/favorites'){
             return GetPageRoute(
               settings: settings,
-              page: () => const FavoritesPage()
+              page: () => const FavoritesPage(),
+              binding: FavoritesBindings()
             );
           }
           return null;
