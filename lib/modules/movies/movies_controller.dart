@@ -84,6 +84,7 @@ class MoviesController extends GetxController with MessagesMixin {
 
   void filterByName(String title) {
     if (title.isNotEmpty) {
+      genreSelected.value = null;
       var newPopularMovies = _popularMoviesOriginal.where((movie) {
         return movie.title.toLowerCase().contains(title.toLowerCase());
       });

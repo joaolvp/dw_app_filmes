@@ -11,17 +11,37 @@ class MoviesPage extends GetView<MoviesController> {
 
   @override
   Widget build(BuildContext context) {
-    var popular = controller.popularMovies;
-    return SizedBox(
-      width: Get.width,
-      child: ListView(
-        children: [
-          MoviesHeader(movies: popular,),
-          const MoviesFilters(),
-          MoviesGroup(title: 'Mais Populares', movies: popular,),
-          MoviesGroup(title: 'Top Filmes', movies: controller.topRatedMovies,)
-        ],
-      ),
-    );
+    //var popular = controller.popularMovies;
+    return Obx(() { 
+            return SizedBox(
+          width: Get.width,
+          child: ListView(
+            children: [
+              const MoviesHeader(),
+              const MoviesFilters(),
+              Offstage(
+                offstage: controller.popularMovies.isEmpty ? true : false,
+                child: MoviesGroup(
+                  title: 'Mais Populares', 
+                  movies: controller.popularMovies,)),
+              Offstage(
+                offstage: controller.topRatedMovies.isEmpty ? true : false,
+                child: MoviesGroup(
+                  title: 'Top Filmes', 
+                  movies: controller.topRatedMovies,)),
+              Offstage(
+                offstage: controller.popularMovies.isEmpty && controller.topRatedMovies.isEmpty ? false : true,
+                child: const Column(
+                  children: [
+                    SizedBox(height: 30,),
+                    Center(child: Text('Nenhum filme encontrado :(')),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+        }
+      );
   }
 }

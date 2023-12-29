@@ -1,15 +1,11 @@
-import 'package:app_filmes/models/movie_model.dart';
 import 'package:app_filmes/modules/movies/movies_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class MoviesHeader extends GetView<MoviesController> {
-  final List<MovieModel> movies;
   const MoviesHeader({
     super.key,
-    required this.movies,
   });
 
   @override
@@ -20,33 +16,32 @@ class MoviesHeader extends GetView<MoviesController> {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          CarouselSlider.builder(
-           /*  shrinkWrap: true,
-            scrollDirection: Axis.horizontal, */
-            itemCount: 3,
-            itemBuilder: (context, index, indexReal) {
-              print('MOVIES $movies');
-              if (movies.isEmpty) {
-                return FadeInImage.memoryNetwork(
-                image: 'https://i.gifer.com/origin/34/34338d26023e5515f6cc8969aa027bca.gif',
-                placeholder: kTransparentImage,
-                fit: BoxFit.cover,
-              );
-              }
-              var movie = movies[index];
-              return FadeInImage.memoryNetwork(
-                image: 'https://image.tmdb.org/t/p/w500${movie.headerImage}',
-                placeholder: kTransparentImage,
-                fit: BoxFit.cover,
-              );
-            },
+          CarouselSlider(
             options: CarouselOptions(
                 enableInfiniteScroll: true,
-                aspectRatio: 16 / 9,
+                autoPlayInterval: const Duration(seconds: 5),
+                autoPlayCurve: Easing.linear,
+                autoPlayAnimationDuration: const Duration(seconds: 1),
                 autoPlay: true,
                 height: 196,
                 disableCenter: true,
                 viewportFraction: 1.0),
+            items: [
+              'the_godfather.jpg',
+              'pulp_fiction.jpg',
+              'the_dark_knight.jpg',
+              'the_lord_of_the_rings.jpg',
+              'forrest_gump.jpg'
+            ].map((movieName) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Image.asset(
+                    'assets/images/movies_header/$movieName',
+                    fit: BoxFit.cover,
+                  );
+                },
+              );
+            }).toList(),
           ),
           Container(
             width: Get.width * .9,
